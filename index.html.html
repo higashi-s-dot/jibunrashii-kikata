@@ -1,0 +1,1914 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>家庭科：自分らしい着方を工夫しよう</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter & Noto Sans JP -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            touch-action: manipulation;
+            user-select: none;
+            -webkit-user-select: none;
+            background-color: #f8fafc;
+        }
+        
+        /* タブレット操作用の押しやすいボタン設定 */
+        .touch-btn {
+            min-height: 52px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border-radius: 0.85rem;
+            transition: all 0.15s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.6rem 0.8rem;
+            touch-action: manipulation;
+            cursor: pointer;
+            border: 2px solid #e2e8f0;
+            background-color: #ffffff;
+            color: #334155;
+        }
+        .touch-btn:active {
+            transform: scale(0.97);
+        }
+        .touch-btn.selected {
+            background-color: #4f46e5 !important;
+            color: #ffffff !important;
+            border-color: #3730a3 !important;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35);
+            font-weight: 800;
+        }
+
+        .color-swatch-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 9999px;
+            border: 3px solid #ffffff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            transition: all 0.15s ease;
+            position: relative;
+        }
+        .color-swatch-btn.selected {
+            transform: scale(1.18);
+            box-shadow: 0 0 0 3px #4f46e5, 0 4px 10px rgba(0,0,0,0.25);
+            z-index: 10;
+        }
+
+        .tab-btn {
+            transition: all 0.2s ease;
+            min-height: 54px;
+        }
+        .tab-btn.active {
+            background-color: #4f46e5;
+            color: white;
+            font-weight: 800;
+            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
+        }
+
+        canvas {
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between text-slate-800 bg-slate-100">
+
+    <!-- Header -->
+    <header class="bg-indigo-600 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="bg-white/20 p-2 rounded-xl">
+                    <i class="fa-solid fa-shirt text-yellow-300 text-xl sm:text-2xl"></i>
+                </div>
+                <div>
+                    <span class="text-xs text-indigo-200 font-bold block">中学1年 家庭科「衣服の選択と着方」</span>
+                    <h1 class="font-black text-base sm:text-xl tracking-wide">自分らしい着方を工夫しよう</h1>
+                </div>
+            </div>
+            <div id="step-indicator" class="text-xs sm:text-sm bg-indigo-900/80 text-yellow-300 px-4 py-2 rounded-full border border-indigo-400 font-black">
+                STEP 1 / 5：色の振り返り
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-6xl w-full mx-auto p-3 sm:p-5 flex-grow flex flex-col justify-center">
+
+        <!-- STEP 1: 色の振り返り（任意） -->
+        <section id="step-1" class="bg-white rounded-3xl p-5 sm:p-8 shadow-xl border border-slate-200 max-w-4xl mx-auto w-full">
+            <div class="text-center mb-6">
+                <span class="inline-block bg-indigo-100 text-indigo-800 font-bold px-4 py-1.5 rounded-full text-xs sm:text-sm mb-2">STEP 1 / 5</span>
+                <h2 class="text-2xl sm:text-3xl font-black text-slate-800">前回の学習「自分の色」を振り返ろう</h2>
+                <p class="text-sm sm:text-base text-slate-600 mt-2">
+                    前回の『カラーコーディネート』で考えた「好きな色」と「似合うと思った色」を選んでみよう！<br>
+                    <span class="text-xs text-indigo-600 font-bold bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200 inline-block mt-2">
+                        💡 選ばずにそのまま「場面を選ぶ」へ進むこともできます（いつでも変更可能）
+                    </span>
+                </p>
+            </div>
+
+            <div class="space-y-6 max-w-3xl mx-auto">
+                <!-- 好きな色 -->
+                <div class="bg-indigo-50/60 p-5 rounded-2xl border border-indigo-100 shadow-sm">
+                    <div class="flex justify-between items-center mb-3">
+                        <label class="font-black text-slate-800 text-base sm:text-lg flex items-center gap-2">
+                            <i class="fa-solid fa-heart text-pink-500 text-xl"></i> あなたの「好きな色」
+                        </label>
+                        <span id="label-fav-color" class="text-xs sm:text-sm font-bold text-indigo-700 bg-white px-3 py-1 rounded-full border border-indigo-200">未選択</span>
+                    </div>
+                    <div id="grid-fav-color" class="flex flex-wrap gap-2.5 justify-center py-2"></div>
+                </div>
+
+                <!-- 似合う色 -->
+                <div class="bg-amber-50/60 p-5 rounded-2xl border border-amber-100 shadow-sm">
+                    <div class="flex justify-between items-center mb-3">
+                        <label class="font-black text-slate-800 text-base sm:text-lg flex items-center gap-2">
+                            <i class="fa-solid fa-star text-amber-500 text-xl"></i> あなたに「似合うと思った色」
+                        </label>
+                        <span id="label-fit-color" class="text-xs sm:text-sm font-bold text-amber-700 bg-white px-3 py-1 rounded-full border border-amber-200">未選択</span>
+                    </div>
+                    <div id="grid-fit-color" class="flex flex-wrap gap-2.5 justify-center py-2"></div>
+                </div>
+
+                <!-- 次へボタン -->
+                <div class="text-center pt-4">
+                    <button id="btn-to-step2" onclick="goToStep(2)" class="w-full sm:w-auto px-10 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-2xl shadow-lg transition-all text-lg flex items-center justify-center gap-3 mx-auto cursor-pointer">
+                        <span>場面（TPO）を選ぶ</span>
+                        <i class="fa-solid fa-arrow-right text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 2: TPO選択画面 -->
+        <section id="step-2" class="hidden bg-white rounded-3xl p-5 sm:p-8 shadow-xl border border-slate-200 w-full">
+            <div class="text-center mb-6">
+                <span class="inline-block bg-indigo-100 text-indigo-800 font-bold px-4 py-1.5 rounded-full text-xs sm:text-sm mb-2">STEP 2 / 5</span>
+                <h2 class="text-2xl sm:text-3xl font-black text-slate-800">着ていく「場面（TPO）」を選ぼう</h2>
+                <p class="text-sm sm:text-base text-slate-600 mt-2">いつ・どこで・何をするかによって、必要な機能や服装が変わります。挑戦したい場面を選んでね。</p>
+            </div>
+
+            <div id="tpo-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto"></div>
+
+            <div class="flex justify-between items-center mt-8 max-w-5xl mx-auto pt-4 border-t border-slate-200">
+                <button onclick="goToStep(1)" class="px-6 py-3.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-2xl text-base flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left"></i> 前の画面
+                </button>
+                <button id="btn-to-step3" onclick="goToStep(3)" disabled class="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-300 text-white font-black rounded-2xl shadow-lg disabled:shadow-none text-base flex items-center gap-2 transition-all">
+                    <span>着せ替えをはじめる</span>
+                    <i class="fa-solid fa-shirt"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- STEP 3: 着せ替えメイン画面 -->
+        <section id="step-3" class="hidden flex flex-col lg:flex-row gap-5 items-start">
+            
+            <!-- 左側: 人物プレビュー Canvas ＆ TPO・カラーインフォ -->
+            <div class="w-full lg:w-5/12 bg-white rounded-3xl p-4 sm:p-5 shadow-xl border border-slate-200 flex flex-col justify-between items-center lg:sticky lg:top-20">
+                
+                <!-- TPO & マイカラー情報表示 -->
+                <div class="w-full bg-indigo-50/70 border border-indigo-100 rounded-2xl p-3 mb-3">
+                    <div class="flex items-center justify-between font-bold text-slate-800 border-b border-indigo-200/60 pb-2 mb-2">
+                        <span id="current-tpo-title" class="text-sm sm:text-base flex items-center gap-1.5 text-indigo-950 font-black">
+                            <i class="fa-solid fa-location-dot text-indigo-600"></i> 未選択
+                        </span>
+                        <span id="current-tpo-temp" class="bg-indigo-600 text-white text-xs px-3 py-1 rounded-full font-bold">20℃</span>
+                    </div>
+                    
+                    <!-- 登録色カード表示 -->
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <div class="bg-white p-2 rounded-xl border border-slate-200 flex items-center gap-2 shadow-sm">
+                            <div class="w-4 h-4 rounded-full border border-slate-300 flex-shrink-0" id="badge-fav-color"></div>
+                            <div class="truncate">
+                                <span class="text-slate-400 block text-[10px]">好きな色</span>
+                                <span id="text-fav-color" class="font-bold text-slate-700 truncate block">未登録</span>
+                            </div>
+                        </div>
+                        <div class="bg-white p-2 rounded-xl border border-slate-200 flex items-center gap-2 shadow-sm">
+                            <div class="w-4 h-4 rounded-full border border-slate-300 flex-shrink-0" id="badge-fit-color"></div>
+                            <div class="truncate">
+                                <span class="text-slate-400 block text-[10px]">似合う色</span>
+                                <span id="text-fit-color" class="font-bold text-slate-700 truncate block">未登録</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 人物描画キャンバス -->
+                <div class="relative my-auto flex justify-center items-center w-full bg-gradient-to-b from-slate-50 to-indigo-50/30 rounded-2xl border border-slate-200 p-2 overflow-hidden h-[390px] shadow-inner">
+                    <canvas id="avatarCanvas" width="300" height="400" class="drop-shadow-md max-h-full"></canvas>
+                </div>
+
+                <!-- アクションボタンエリア -->
+                <div class="w-full flex justify-between gap-2 mt-4">
+                    <button onclick="goToStep(2)" class="px-3.5 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs sm:text-sm flex items-center gap-1.5 border border-slate-300">
+                        <i class="fa-solid fa-rotate-left"></i> TPO変更
+                    </button>
+                    <button onclick="resetOutfit()" class="px-3.5 py-3 bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold rounded-xl text-xs sm:text-sm flex items-center gap-1.5 border border-rose-200">
+                        <i class="fa-solid fa-trash-can"></i> リセット
+                    </button>
+                    <button onclick="goToStep(4)" class="px-5 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-xl shadow-md text-sm flex-grow flex items-center justify-center gap-1.5">
+                        <span>服が決まった！</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 右側: 着せ替えコントロールタブ & 選択肢 -->
+            <div class="w-full lg:w-7/12 bg-white rounded-3xl p-4 sm:p-6 shadow-xl border border-slate-200 flex flex-col justify-between min-h-[580px]">
+                
+                <!-- 大カテゴリタブ（トップス・ボトムス・くつ・こもの） -->
+                <div class="grid grid-cols-4 gap-2 bg-slate-100 p-2 rounded-2xl mb-4">
+                    <button class="tab-btn active py-3 px-2 rounded-xl text-xs sm:text-sm font-black flex flex-col sm:flex-row items-center justify-center gap-1.5" onclick="switchTab('tops')">
+                        <i class="fa-solid fa-shirt text-lg"></i>
+                        <span>トップス</span>
+                    </button>
+                    <button class="tab-btn py-3 px-2 text-slate-600 hover:text-slate-900 rounded-xl text-xs sm:text-sm font-black flex flex-col sm:flex-row items-center justify-center gap-1.5" onclick="switchTab('bottoms')">
+                        <i class="fa-solid fa-user text-lg"></i>
+                        <span>ボトムス</span>
+                    </button>
+                    <button class="tab-btn py-3 px-2 text-slate-600 hover:text-slate-900 rounded-xl text-xs sm:text-sm font-black flex flex-col sm:flex-row items-center justify-center gap-1.5" onclick="switchTab('shoes')">
+                        <i class="fa-solid fa-shoe-prints text-lg"></i>
+                        <span>くつ</span>
+                    </button>
+                    <button class="tab-btn py-3 px-2 text-slate-600 hover:text-slate-900 rounded-xl text-xs sm:text-sm font-black flex flex-col sm:flex-row items-center justify-center gap-1.5" onclick="switchTab('accessories')">
+                        <i class="fa-solid fa-hat-cowboy text-lg"></i>
+                        <span>こもの</span>
+                    </button>
+                </div>
+
+                <!-- タブコンテンツエリア -->
+                <div class="flex-grow space-y-6 overflow-y-auto max-h-[500px] pr-1">
+
+                    <!-- 【トップス設定】 -->
+                    <div id="tab-tops" class="tab-content space-y-5">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-2">① 服の形（種類）</label>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" id="opt-tops-type"></div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-2">② 袖（そで）の長さ</label>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" id="opt-tops-sleeve"></div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-2">③ 襟（えり）の種類</label>
+                            <div class="grid grid-cols-2 sm:grid-cols-5 gap-2" id="opt-tops-collar"></div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-2">④ 柄（模様）</label>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-2.5" id="opt-tops-pattern"></div>
+                            
+                            <!-- ストライプ幅選択 -->
+                            <div id="stripe-width-box" class="hidden bg-slate-50 p-3 rounded-2xl border border-indigo-100 mt-2">
+                                <label class="block text-xs font-bold text-indigo-800 mb-2">しま模様（縦縞・横縞）の太さ：</label>
+                                <div class="grid grid-cols-3 gap-2" id="opt-tops-stripe-width"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-xs font-bold text-slate-500">⑤ 服の色</label>
+                                <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-md">★印は前回登録した色</span>
+                            </div>
+                            <div class="flex flex-wrap gap-2.5 p-3.5 bg-slate-50 rounded-2xl border border-slate-200 justify-center" id="opt-tops-color"></div>
+                        </div>
+                    </div>
+
+                    <!-- 【ボトムス設定】 -->
+                    <div id="tab-bottoms" class="tab-content hidden space-y-5">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-2">① ボトムスの形</label>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" id="opt-bottoms-type"></div>
+                        </div>
+                        <div id="skirt-length-box" class="hidden bg-pink-50 p-3 rounded-2xl border border-pink-100 mt-3">
+                            <label class="block text-xs font-bold text-pink-800 mb-2">② スカートの長さ</label>
+                            <div class="grid grid-cols-3 gap-2.5" id="opt-skirt-length"></div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-2">③ 柄（模様）</label>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" id="opt-bottoms-pattern"></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-xs font-bold text-slate-500">④ ボトムスの色</label>
+                                <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-md">★印は前回登録した色</span>
+                            </div>
+                            <div class="flex flex-wrap gap-2.5 p-3.5 bg-slate-50 rounded-2xl border border-slate-200 justify-center" id="opt-bottoms-color"></div>
+                        </div>
+                    </div>
+
+                    <!-- 【靴設定】 -->
+                    <div id="tab-shoes" class="tab-content hidden space-y-5">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-2">① くつの種類</label>
+                            <div class="grid grid-cols-3 gap-2.5" id="opt-shoes-type"></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-xs font-bold text-slate-500">② くつの色</label>
+                                <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-md">★印は前回登録した色</span>
+                            </div>
+                            <div class="flex flex-wrap gap-2.5 p-3.5 bg-slate-50 rounded-2xl border border-slate-200 justify-center" id="opt-shoes-color"></div>
+                        </div>
+                    </div>
+
+                    <!-- 【小物設定（複数選択 ＆ 各小物ごとの個別に色設定対応）】 -->
+                    <div id="tab-accessories" class="tab-content hidden space-y-5">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-2">① 身につけるこもの（複数えらべます）</label>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" id="opt-acc-type"></div>
+                        </div>
+                        
+                        <!-- 各小物の個別カラー設定エリア -->
+                        <div id="acc-color-settings-container" class="space-y-4 pt-2 border-t border-slate-200">
+                            <!-- JSで動的に選択中の小物の色変更インターフェースを生成 -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 4: 自分らしさを考える・振り返り -->
+        <section id="step-4" class="hidden bg-white rounded-3xl p-5 sm:p-8 shadow-xl border border-slate-200 max-w-4xl mx-auto w-full">
+            <div class="text-center mb-6">
+                <span class="inline-block bg-indigo-100 text-indigo-800 font-bold px-4 py-1.5 rounded-full text-xs sm:text-sm mb-2">STEP 4 / 5</span>
+                <h2 class="text-2xl sm:text-3xl font-black text-slate-800">「自分らしさ」と「工夫」を振り返ろう</h2>
+                <p class="text-sm sm:text-base text-slate-600 mt-2">完成したコーディネートについて、どこに自分らしさを取り入れたか考えよう！</p>
+            </div>
+
+            <div class="space-y-6 max-w-3xl mx-auto">
+                <!-- 1. 自分らしさを取り入れた場所（複数選択） -->
+                <div class="bg-indigo-50/70 p-5 rounded-2xl border border-indigo-100 shadow-sm">
+                    <label class="block font-black text-indigo-950 text-base sm:text-lg mb-3">
+                        ① どこに「自分らしさ」を取り入れましたか？ <span class="text-xs text-indigo-600 font-normal">（当てはまるものを複数チェックOK）</span>
+                    </label>
+                    <div id="previous-color-use-hint" class="mb-3 p-3 bg-white rounded-xl border border-indigo-100 text-sm text-slate-700">
+                        前回の色：好きな色 <strong id="step4-fav-color">未選択</strong> ／ 似合うと思った色 <strong id="step4-fit-color">未選択</strong><br>
+                        <span class="text-xs text-indigo-600 font-bold">今回の服に取り入れたかどうかも振り返ってみよう。</span>
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" id="check-my-style"></div>
+                </div>
+
+                <!-- 2. コメント・文章入力アシスト -->
+                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-3">
+                    <label class="block font-black text-slate-800 text-base">
+                        ② あなたは、どこをどのように工夫しましたか？（理由も書こう）
+                    </label>
+                    
+                    <!-- 入力補助テンプレートボタン -->
+                    <div class="flex flex-wrap gap-2 pt-1">
+                        <span class="text-xs font-bold text-slate-500 self-center">【書き出しのヒント】:</span>
+                        <button onclick="insertTemplate('私は、色を工夫しました。なぜなら、')" class="text-xs bg-white hover:bg-indigo-50 border border-slate-300 hover:border-indigo-400 px-3 py-2 rounded-xl text-slate-700 font-bold shadow-sm">「私は、色を工夫しました。なぜなら...」</button>
+                        <button onclick="insertTemplate('この場面に合わせて、動きやすさを考えて')" class="text-xs bg-white hover:bg-indigo-50 border border-slate-300 hover:border-indigo-400 px-3 py-2 rounded-xl text-slate-700 font-bold shadow-sm">「場面に合わせて、動きやすさを...」</button>
+                        <button onclick="insertTemplate('好きな色と似合う色を組み合わせたところが工夫です。')" class="text-xs bg-white hover:bg-indigo-50 border border-slate-300 hover:border-indigo-400 px-3 py-2 rounded-xl text-slate-700 font-bold shadow-sm">「好きな色と似合う色を組み合わせ...」</button>
+                        <button onclick="insertTemplate('自分らしさを出すために、')" class="text-xs bg-white hover:bg-indigo-50 border border-slate-300 hover:border-indigo-400 px-3 py-2 rounded-xl text-slate-700 font-bold shadow-sm">「自分らしさを出すために...」</button>
+                    </div>
+
+                    <textarea id="comment-text" rows="4" class="w-full p-4 border border-slate-300 rounded-2xl text-base focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white shadow-inner" placeholder="例：私は、動きやすいハーフパンツを選びました。また、自分の好きな青色を取り入れて自分らしさを表現したところが工夫です。"></textarea>
+                </div>
+
+                <!-- 3. 前回の色とのつながり -->
+                <div class="bg-amber-50/70 p-5 rounded-2xl border border-amber-100">
+                    <label class="block font-black text-slate-800 text-base mb-3">
+                        ③ 前回考えた「自分の色」を、今回の服に取り入れましたか？
+                    </label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5" id="check-previous-color">
+                        <label class="flex items-center gap-3 bg-white p-3 rounded-xl border border-slate-200 cursor-pointer">
+                            <input type="radio" name="previous-color-use" value="fav" class="w-5 h-5">
+                            <span class="font-bold">好きな色を取り入れた</span>
+                        </label>
+                        <label class="flex items-center gap-3 bg-white p-3 rounded-xl border border-slate-200 cursor-pointer">
+                            <input type="radio" name="previous-color-use" value="fit" class="w-5 h-5">
+                            <span class="font-bold">似合うと思った色を取り入れた</span>
+                        </label>
+                        <label class="flex items-center gap-3 bg-white p-3 rounded-xl border border-slate-200 cursor-pointer">
+                            <input type="radio" name="previous-color-use" value="both" class="w-5 h-5">
+                            <span class="font-bold">両方取り入れた</span>
+                        </label>
+                        <label class="flex items-center gap-3 bg-white p-3 rounded-xl border border-slate-200 cursor-pointer">
+                            <input type="radio" name="previous-color-use" value="other" class="w-5 h-5">
+                            <span class="font-bold">今回は別の色を選んだ</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 4. TPOについてのセルフチェック -->
+                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200">
+                    <label class="block font-black text-slate-800 text-base mb-3">
+                        ④ 選び方のセルフチェック（自分で確認しよう）
+                    </label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm" id="check-tpo-reflection">
+                        <label class="flex items-center space-x-3 bg-white p-3.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-indigo-50/50 shadow-sm">
+                            <input type="checkbox" id="chk-ref-1" class="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500">
+                            <span class="font-bold text-slate-800">場面に合っている</span>
+                        </label>
+                        <label class="flex items-center space-x-3 bg-white p-3.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-indigo-50/50 shadow-sm">
+                            <input type="checkbox" id="chk-ref-2" class="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500">
+                            <span class="font-bold text-slate-800">季節・気温に合っている</span>
+                        </label>
+                        <label class="flex items-center space-x-3 bg-white p-3.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-indigo-50/50 shadow-sm">
+                            <input type="checkbox" id="chk-ref-3" class="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500">
+                            <span class="font-bold text-slate-800">動きやすさや安全性を考えた</span>
+                        </label>
+                        <label class="flex items-center space-x-3 bg-white p-3.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-indigo-50/50 shadow-sm">
+                            <input type="checkbox" id="chk-ref-4" class="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500">
+                            <span class="font-bold text-slate-800">自分らしさを取り入れた</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center pt-4">
+                    <button onclick="goToStep(3)" class="px-6 py-3.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-2xl text-base flex items-center gap-2">
+                        <i class="fa-solid fa-arrow-left"></i> 着せ替えに戻る
+                    </button>
+                    <button onclick="goToStep(5)" class="px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-2xl shadow-lg text-base flex items-center gap-2">
+                        <span>完成カードを見る</span>
+                        <i class="fa-solid fa-flag-checkered"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 5: 完成・振り返りカード画面 -->
+        <section id="step-5" class="hidden bg-white rounded-3xl p-5 sm:p-8 shadow-2xl border border-slate-200 max-w-4xl mx-auto w-full">
+            <div id="final-card" class="bg-gradient-to-b from-slate-50 to-indigo-50/40 p-6 sm:p-8 rounded-3xl border border-indigo-100 mb-6 shadow-inner">
+                
+                <div class="border-b-2 border-indigo-200 pb-4 mb-6 text-center">
+                    <span class="text-xs font-bold text-indigo-600 tracking-widest uppercase block mb-1">家庭科 学習振り返りシート</span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-slate-800">私の「自分らしい着方」</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    <!-- 完成イラスト -->
+                    <div class="md:col-span-5 flex flex-col items-center justify-center bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+                        <canvas id="finalCanvas" width="280" height="380" class="max-w-full h-auto"></canvas>
+                    </div>
+
+                    <!-- 選択情報 & 感想表示 -->
+                    <div class="md:col-span-7 space-y-3.5 text-sm sm:text-base">
+                        <!-- TPO -->
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm">
+                            <span class="font-black text-indigo-950 block text-xs mb-1">【選んだ場面（TPO）】</span>
+                            <p id="summary-tpo" class="text-slate-800 font-bold"></p>
+                        </div>
+
+                        <!-- 登録色 -->
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex justify-between items-center">
+                            <div>
+                                <span class="text-slate-400 text-xs block font-bold">前回の登録色</span>
+                                <span class="font-bold text-slate-700">好きな色: <span id="summary-fav" class="text-indigo-600">未選択</span> / 似合う色: <span id="summary-fit" class="text-indigo-600">未選択</span></span>
+                            </div>
+                        </div>
+
+                        <!-- 前回の色とのつながり -->
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm">
+                            <span class="font-black text-indigo-950 block text-xs mb-1">【前回の「自分の色」とのつながり】</span>
+                            <p id="summary-previous-color" class="text-slate-700 font-bold">未選択</p>
+                        </div>
+
+                        <!-- 自分らしさポイント -->
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm">
+                            <span class="font-black text-indigo-950 block text-xs mb-1">【自分らしさを取り入れた部分】</span>
+                            <p id="summary-my-style" class="text-indigo-600 font-bold"></p>
+                        </div>
+
+                        <!-- コメント -->
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm">
+                            <span class="font-black text-indigo-950 block text-xs mb-1">【工夫した点と理由】</span>
+                            <p id="summary-comment" class="text-slate-700 font-medium whitespace-pre-wrap leading-relaxed"></p>
+                        </div>
+
+                        <!-- 振り返りチェック結果 -->
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm">
+                            <span class="font-black text-indigo-950 block text-xs mb-1">【セルフチェック結果】</span>
+                            <ul id="summary-reflections" class="text-xs text-slate-700 space-y-1 font-bold"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- グループワーク提示用メッセージ -->
+                <div class="mt-6 p-4 bg-indigo-600 text-white rounded-2xl text-center font-black text-sm sm:text-base shadow-md">
+                    💡 この画面をグループの友達に見せながら「どこを工夫したか」「なぜその服を選んだか」共有してみよう！
+                </div>
+            </div>
+
+            <!-- 操作ボタン群（2種類の保存に対応） -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                <button onclick="goToStep(4)" class="px-4 py-3.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-2xl text-sm flex items-center justify-center gap-2 transition-all">
+                    <i class="fa-solid fa-pen"></i> 文章をなおす
+                </button>
+                <button onclick="saveAvatarImage()" class="px-4 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl shadow-md text-sm flex items-center justify-center gap-2 transition-all">
+                    <i class="fa-solid fa-user text-base"></i> 人物イラストを保存
+                </button>
+                <button onclick="saveFullSheetImage()" class="px-4 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-2xl shadow-lg text-sm flex items-center justify-center gap-2 transition-all ring-2 ring-indigo-300">
+                    <i class="fa-solid fa-file-arrow-down text-base"></i> 振り返りシート全体を保存
+                </button>
+                <button onclick="restartApp()" class="px-4 py-3.5 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-2xl shadow-md text-sm flex items-center justify-center gap-2 transition-all">
+                    <i class="fa-solid fa-rotate-right"></i> 別のTPOで挑戦
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-200 text-slate-500 text-center py-3 text-xs font-bold border-t border-slate-300">
+        中学1年 家庭科「衣服の選択と着方」学習教材 ｜ 自分らしい着方を工夫しよう
+    </footer>
+
+    <script>
+        // 色マスターデータ（前回のカラーコーディネートとそろえた13色）
+        const COLOR_MASTER = [
+            { id: 'red', name: '赤', hex: '#dc2626' },
+            { id: 'orange', name: 'オレンジ', hex: '#f97316' },
+            { id: 'yellow', name: '黄色', hex: '#facc15' },
+            { id: 'lightgreen', name: '黄緑', hex: '#84cc16' },
+            { id: 'green', name: '緑', hex: '#16a34a' },
+            { id: 'lightblue', name: '水色', hex: '#38bdf8' },
+            { id: 'blue', name: '青', hex: '#2563eb' },
+            { id: 'purple', name: '紫', hex: '#9333ea' },
+            { id: 'pink', name: 'ピンク', hex: '#ec4899' },
+            { id: 'white', name: '白', hex: '#ffffff', border: '#cbd5e1' },
+            { id: 'black', name: '黒', hex: '#1e293b' },
+            { id: 'gray', name: 'グレー', hex: '#64748b' },
+            { id: 'brown', name: '茶色', hex: '#92400e' }
+        ];
+
+        // TPO（7つの場面設定）
+        const TPO_MASTER = [
+            {
+                id: 'town',
+                title: '友達と遊びに出かける日',
+                activity: '散歩、買いもの、おしゃべり',
+                season: '春・秋',
+                temp: '19℃前後',
+                icon: 'fa-store',
+                color: 'bg-purple-500',
+                hint: '歩きやすさと、自分のおしゃれ・好みのバランスを考えよう。'
+            },
+            {
+                id: 'sports',
+                title: '休日にスポーツをしに行く日',
+                activity: '体を動かす、汗をかくスポーツ',
+                season: '春〜秋',
+                temp: '22℃前後',
+                icon: 'fa-person-running',
+                color: 'bg-emerald-500',
+                hint: '動きやすさや、汗をかいたときの快適さを考えてみよう。'
+            },
+            {
+                id: 'restaurant',
+                title: '家族とレストランなどに行く日',
+                activity: '落ち着いた雰囲気での食事',
+                season: '通年',
+                temp: '21℃前後（室内）',
+                icon: 'fa-utensils',
+                color: 'bg-amber-500',
+                hint: '少し落ち着いた雰囲気や清潔感を意識してみよう。'
+            },
+            {
+                id: 'summer',
+                title: '暑い夏の日に出かける',
+                activity: '強い日差しの中での外出・散歩',
+                season: '夏',
+                temp: '32℃（真夏日）',
+                icon: 'fa-sun',
+                color: 'bg-rose-500',
+                hint: '涼しさや、強い日差し（紫外線）への対策を工夫してみよう。'
+            },
+            {
+                id: 'winter',
+                title: '寒い冬の日に出かける',
+                activity: '冷たい風が吹く中での移動',
+                season: '冬',
+                temp: '6℃（真冬）',
+                icon: 'fa-snowflake',
+                color: 'bg-sky-600',
+                hint: '体温を逃がさない温かさや防風を考えてみよう。'
+            },
+            {
+                id: 'formal',
+                title: '少しきちんとした場面',
+                activity: '発表会や式典、フォーマルな集まり',
+                season: '通年',
+                temp: '20℃前後',
+                icon: 'fa-award',
+                color: 'bg-indigo-600',
+                hint: '相手や場所に合わせた、きちんとした印象を考えてみよう。'
+            },
+            {
+                id: 'custom',
+                title: '自分で場面を決める',
+                activity: '自分で考えた場面に合わせて服装を選ぶ',
+                season: '自分で設定',
+                temp: '自分で設定',
+                icon: 'fa-lightbulb',
+                color: 'bg-pink-500',
+                hint: '「いつ・どこで・何をするか」を決め、季節・気温・活動に合う服装を考えてみよう。'
+            }
+        ];
+
+        // 自分らしさの選択項目
+        const MY_STYLE_OPTIONS = [
+            { id: 'color', label: '色' },
+            { id: 'pattern', label: '柄・模様' },
+            { id: 'shape', label: '服の形' },
+            { id: 'sleeve_collar', label: '袖・襟' },
+            { id: 'bottoms', label: 'パンツ・スカート' },
+            { id: 'shoes', label: 'くつ' },
+            { id: 'accessory', label: 'こもの' },
+            { id: 'other', label: 'その他' }
+        ];
+
+        // 各小物の定義（複数選択対応）
+        const ACCESSORY_DEFS = [
+            { id: 'cap', label: '帽子', defaultColor: 'black' },
+            { id: 'backpack', label: 'リュック', defaultColor: 'black' },
+            { id: 'tote', label: 'トートバッグ', defaultColor: 'brown' }
+        ];
+
+        // 生徒の選択状態（小物の複数保持＆各小物カラー構造に対応）
+        const appState = {
+            step: 1,
+            favColor: null,
+            fitColor: null,
+            selectedTPO: null,
+            customTPO: {
+                title: '',
+                season: '春',
+                temp: '20℃',
+                activity: ''
+            },
+            outfit: {
+                tops: { type: 'tshirt', sleeve: 'short', collar: 'none', pattern: 'none', stripeWidth: 'normal', color: 'blue' },
+                bottoms: { type: 'straight', skirtLength: 'knee', pattern: 'none', color: 'black' },
+                shoes: { type: 'sneaker', color: 'white' },
+                accessories: {
+                    cap: { active: false, color: 'black' },
+                    backpack: { active: false, color: 'black' },
+                    tote: { active: false, color: 'brown' }
+                }
+            },
+            myStylePoints: [],
+            previousColorUse: '',
+            comment: ''
+        };
+
+        // 初期化処理
+        window.onload = function() {
+            renderStep1Grids();
+            renderTPOGrid();
+            renderFittingOptions();
+            renderMyStyleChecks();
+            drawAvatar();
+        };
+
+        // ステップ遷移管理
+        function goToStep(stepNum) {
+            appState.step = stepNum;
+
+            for (let i = 1; i <= 5; i++) {
+                const sec = document.getElementById(`step-${i}`);
+                if (sec) sec.classList.add('hidden');
+            }
+            const currentSec = document.getElementById(`step-${stepNum}`);
+            if (currentSec) currentSec.classList.remove('hidden');
+
+            const labels = [
+                'STEP 1 / 5：色の振り返り',
+                'STEP 2 / 5：場面（TPO）選択',
+                'STEP 3 / 5：着せ替え・コーディネート',
+                'STEP 4 / 5：自分らしさと工夫の整理',
+                'STEP 5 / 5：学習振り返りカード'
+            ];
+            const indicator = document.getElementById('step-indicator');
+            if (indicator) indicator.textContent = labels[stepNum - 1];
+
+            if (stepNum === 3) {
+                updateStep3Header();
+                drawAvatar();
+            } else if (stepNum === 4) {
+                renderMyStyleChecks();
+                updateStep4PreviousColor();
+            } else if (stepNum === 5) {
+                updateStep5Summary();
+                drawFinalCardCanvas();
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderStep1Grids() {
+            renderColorSwatchGrid('grid-fav-color', appState.favColor, (id) => {
+                appState.favColor = (appState.favColor === id) ? null : id;
+                renderStep1Grids();
+                updateColorLabels();
+            });
+
+            renderColorSwatchGrid('grid-fit-color', appState.fitColor, (id) => {
+                appState.fitColor = (appState.fitColor === id) ? null : id;
+                renderStep1Grids();
+                updateColorLabels();
+            });
+        }
+
+        function renderColorSwatchGrid(containerId, selectedId, callback) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = '';
+
+            COLOR_MASTER.forEach(c => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = `color-swatch-btn ${selectedId === c.id ? 'selected' : ''}`;
+                btn.style.backgroundColor = c.hex;
+                if (c.border) btn.style.borderColor = c.border;
+                btn.title = c.name;
+
+                if (selectedId === c.id) {
+                    btn.innerHTML = `<i class="fa-solid fa-check text-xs ${c.id === 'white' || c.id === 'yellow' ? 'text-slate-800' : 'text-white'}"></i>`;
+                }
+
+                btn.onclick = () => callback(c.id);
+                container.appendChild(btn);
+            });
+        }
+
+        function updateColorLabels() {
+            const favObj = COLOR_MASTER.find(c => c.id === appState.favColor);
+            const fitObj = COLOR_MASTER.find(c => c.id === appState.fitColor);
+            
+            const favLabel = document.getElementById('label-fav-color');
+            const fitLabel = document.getElementById('label-fit-color');
+
+            if (favLabel) favLabel.textContent = favObj ? favObj.name : '未選択';
+            if (fitLabel) fitLabel.textContent = fitObj ? fitObj.name : '未選択';
+        }
+
+        function renderTPOGrid() {
+            const grid = document.getElementById('tpo-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            TPO_MASTER.forEach(tpo => {
+                const isSelected = appState.selectedTPO === tpo.id;
+                const card = document.createElement('div');
+                card.className = `p-5 rounded-3xl border-2 transition-all cursor-pointer flex flex-col justify-between ${
+                    isSelected ? 'bg-indigo-50 border-indigo-600 ring-4 ring-indigo-200 shadow-xl scale-[1.02]' : 'bg-white border-slate-200 hover:border-indigo-300 shadow-md'
+                }`;
+                card.onclick = () => selectTPO(tpo.id);
+
+                let customFields = '';
+                if (tpo.id === 'custom') {
+                    customFields = `
+                        <div class="mt-4 p-4 bg-pink-50 rounded-2xl border border-pink-200" onclick="event.stopPropagation()">
+                            <label class="block text-xs font-black text-pink-900 mb-1.5">どんな場面？</label>
+                            <input id="custom-tpo-title" type="text" value="${escapeHtml(appState.customTPO.title)}"
+                                placeholder="例：遊園地に行く日"
+                                class="w-full p-2.5 rounded-xl border border-slate-300 bg-white text-sm focus:ring-2 focus:ring-pink-400 focus:outline-none"
+                                oninput="appState.customTPO.title=this.value; updateCustomTPOState();">
+                            <div class="grid grid-cols-2 gap-2 mt-3">
+                                <div>
+                                    <label class="block text-xs font-black text-pink-900 mb-1">季節</label>
+                                    <select id="custom-tpo-season" class="w-full p-2.5 rounded-xl border border-slate-300 bg-white text-sm"
+                                        onchange="appState.customTPO.season=this.value; updateCustomTPOState();">
+                                        ${['春','夏','秋','冬'].map(v => `<option ${appState.customTPO.season===v?'selected':''}>${v}</option>`).join('')}
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-black text-pink-900 mb-1">気温</label>
+                                    <input id="custom-tpo-temp" type="text" value="${escapeHtml(appState.customTPO.temp)}"
+                                        placeholder="例：25℃"
+                                        class="w-full p-2.5 rounded-xl border border-slate-300 bg-white text-sm"
+                                        oninput="appState.customTPO.temp=this.value; updateCustomTPOState();">
+                                </div>
+                            </div>
+                            <label class="block text-xs font-black text-pink-900 mt-3 mb-1.5">何をする？</label>
+                            <input id="custom-tpo-activity" type="text" value="${escapeHtml(appState.customTPO.activity)}"
+                                placeholder="例：友達と遊園地で遊ぶ"
+                                class="w-full p-2.5 rounded-xl border border-slate-300 bg-white text-sm"
+                                oninput="appState.customTPO.activity=this.value; updateCustomTPOState();">
+                        </div>`;
+                }
+
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="${tpo.color} text-white p-3 rounded-2xl flex items-center justify-center text-xl shadow-sm w-12 h-12">
+                                <i class="fa-solid ${tpo.icon}"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-black text-slate-800 text-base sm:text-lg">${tpo.title}</h3>
+                                <span class="text-xs font-bold text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded-md">
+                                    季節: ${tpo.season} (${tpo.temp})
+                                </span>
+                            </div>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-600 font-bold mb-3">${tpo.activity}</p>
+                        <div class="bg-amber-50 p-2.5 rounded-xl border border-amber-200 text-xs text-amber-900 font-bold flex items-start gap-1.5">
+                            <i class="fa-solid fa-lightbulb text-amber-500 mt-0.5"></i>
+                            <span>${tpo.hint}</span>
+                        </div>
+                        ${customFields}
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 flex justify-end">
+                        <span class="text-xs font-black px-4 py-1.5 rounded-full ${isSelected ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-600'}">
+                            ${isSelected ? '選択中 ✓' : 'これを選ぶ'}
+                        </span>
+                    </div>`;
+                grid.appendChild(card);
+            });
+        }
+
+        function escapeHtml(value) {
+            return String(value ?? '').replace(/[&<>"']/g, ch => ({
+                '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+            }[ch]));
+        }
+
+        function updateCustomTPOState() {
+            if (appState.selectedTPO === 'custom') {
+                // 入力中にカード全体を再描画せず、STEP3へ進める状態だけ更新
+                const btn = document.getElementById('btn-to-step3');
+                if (btn) btn.disabled = false;
+            }
+        }
+
+        function selectTPO(tpoId) {
+            appState.selectedTPO = tpoId;
+            renderTPOGrid();
+            const btn = document.getElementById('btn-to-step3');
+            if (btn) btn.disabled = !appState.selectedTPO;
+        }
+
+        function updateStep3Header() {
+            const tpo = TPO_MASTER.find(t => t.id === appState.selectedTPO);
+            if (tpo) {
+                const title = tpo.id === 'custom' && appState.customTPO.title.trim()
+                    ? appState.customTPO.title.trim()
+                    : tpo.title;
+                const season = tpo.id === 'custom' ? appState.customTPO.season : tpo.season;
+                const temp = tpo.id === 'custom' ? appState.customTPO.temp : tpo.temp;
+                document.getElementById('current-tpo-title').innerHTML = `<i class="fa-solid ${tpo.icon} text-indigo-600"></i> ${escapeHtml(title)}`;
+                document.getElementById('current-tpo-temp').textContent = `${season} (${temp})`;
+            }
+
+            const favObj = COLOR_MASTER.find(c => c.id === appState.favColor);
+            const fitObj = COLOR_MASTER.find(c => c.id === appState.fitColor);
+
+            const badgeFav = document.getElementById('badge-fav-color');
+            const textFav = document.getElementById('text-fav-color');
+            const badgeFit = document.getElementById('badge-fit-color');
+            const textFit = document.getElementById('text-fit-color');
+
+            if (badgeFav && textFav) {
+                if (favObj) {
+                    badgeFav.style.backgroundColor = favObj.hex;
+                    textFav.textContent = favObj.name;
+                } else {
+                    badgeFav.style.backgroundColor = '#e2e8f0';
+                    textFav.textContent = '未登録';
+                }
+            }
+
+            if (badgeFit && textFit) {
+                if (fitObj) {
+                    badgeFit.style.backgroundColor = fitObj.hex;
+                    textFit.textContent = fitObj.name;
+                } else {
+                    badgeFit.style.backgroundColor = '#e2e8f0';
+                    textFit.textContent = '未登録';
+                }
+            }
+        }
+
+        function switchTab(tabName) {
+            const tabs = ['tops', 'bottoms', 'shoes', 'accessories'];
+            tabs.forEach(t => {
+                const el = document.getElementById(`tab-${t}`);
+                if (el) el.classList.add('hidden');
+            });
+            const activeEl = document.getElementById(`tab-${tabName}`);
+            if (activeEl) activeEl.classList.remove('hidden');
+
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            tabBtns.forEach((btn, idx) => {
+                if (tabs[idx] === tabName) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
+        function renderFittingOptions() {
+            // トップス
+            renderButtonOptionGroup('opt-tops-type', [
+                { id: 'tshirt', label: 'Tシャツ' },
+                { id: 'hoodie', label: 'パーカー' },
+                { id: 'shirt', label: 'シャツ' },
+                { id: 'knit', label: 'セーター' }
+            ], appState.outfit.tops.type, (id) => { appState.outfit.tops.type = id; drawAvatar(); renderFittingOptions(); });
+
+            renderButtonOptionGroup('opt-tops-sleeve', [
+                { id: 'none', label: 'ノースリーブ' },
+                { id: 'short', label: '半袖' },
+                { id: 'three-quarter', label: '七分袖' },
+                { id: 'long', label: '長袖' }
+            ], appState.outfit.tops.sleeve, (id) => { appState.outfit.tops.sleeve = id; drawAvatar(); renderFittingOptions(); });
+
+            renderButtonOptionGroup('opt-tops-collar', [
+                { id: 'none', label: '襟なし' },
+                { id: 'round', label: '丸襟' },
+                { id: 'vneck', label: 'Vネック' },
+                { id: 'uneck', label: 'Uネック' },
+                { id: 'shirt', label: 'シャツ襟' }
+            ], appState.outfit.tops.collar, (id) => { appState.outfit.tops.collar = id; drawAvatar(); renderFittingOptions(); });
+
+            renderButtonOptionGroup('opt-tops-pattern', [
+                { id: 'none', label: '無地' },
+                { id: 'stripe-v', label: '縦縞' },
+                { id: 'stripe-h', label: '横縞' },
+                { id: 'check', label: 'チェック' },
+                { id: 'dot', label: 'ドット' },
+                { id: 'flower', label: '花柄' },
+                { id: 'one-point', label: 'ワンポイント' }
+            ], appState.outfit.tops.pattern, (id) => { 
+                appState.outfit.tops.pattern = id; 
+                document.getElementById('stripe-width-box').classList.toggle('hidden', !(id === 'stripe-v' || id === 'stripe-h'));
+                drawAvatar(); 
+                renderFittingOptions(); 
+            });
+
+            renderButtonOptionGroup('opt-tops-stripe-width', [
+                { id: 'fine', label: '細い縞' },
+                { id: 'normal', label: '普通の縞' },
+                { id: 'thick', label: '太い縞' }
+            ], appState.outfit.tops.stripeWidth, (id) => { appState.outfit.tops.stripeWidth = id; drawAvatar(); renderFittingOptions(); });
+
+            renderColorOptions('opt-tops-color', appState.outfit.tops.color, (id) => { appState.outfit.tops.color = id; drawAvatar(); renderFittingOptions(); });
+
+            // ボトムス
+            renderButtonOptionGroup('opt-bottoms-type', [
+                { id: 'straight', label: 'ストレート' },
+                { id: 'wide', label: 'ワイド' },
+                { id: 'shorts', label: 'ハーフパンツ' },
+                { id: 'skirt', label: 'スカート' }
+            ], appState.outfit.bottoms.type, (id) => {
+                appState.outfit.bottoms.type = id;
+                drawAvatar();
+                renderFittingOptions();
+            });
+
+            const skirtBox = document.getElementById('skirt-length-box');
+            if (skirtBox) skirtBox.classList.toggle('hidden', appState.outfit.bottoms.type !== 'skirt');
+            renderButtonOptionGroup('opt-skirt-length', [
+                { id: 'short', label: '短め' },
+                { id: 'knee', label: 'ひざ丈' },
+                { id: 'long', label: '長め' }
+            ], appState.outfit.bottoms.skirtLength, (id) => {
+                appState.outfit.bottoms.skirtLength = id;
+                drawAvatar();
+                renderFittingOptions();
+            });
+
+            renderButtonOptionGroup('opt-bottoms-pattern', [
+                { id: 'none', label: '無地' },
+                { id: 'stripe-v', label: '縦縞' },
+                { id: 'check', label: 'チェック' },
+                { id: 'dot', label: 'ドット' }
+            ], appState.outfit.bottoms.pattern, (id) => { appState.outfit.bottoms.pattern = id; drawAvatar(); renderFittingOptions(); });
+
+            renderColorOptions('opt-bottoms-color', appState.outfit.bottoms.color, (id) => { appState.outfit.bottoms.color = id; drawAvatar(); renderFittingOptions(); });
+
+            // 靴
+            renderButtonOptionGroup('opt-shoes-type', [
+                { id: 'sneaker', label: 'スニーカー' },
+                { id: 'leather', label: '革靴' },
+                { id: 'sandal', label: 'サンダル' }
+            ], appState.outfit.shoes.type, (id) => { appState.outfit.shoes.color = (id==='leather' && appState.outfit.shoes.color==='white')?'black':appState.outfit.shoes.color; appState.outfit.shoes.type = id; drawAvatar(); renderFittingOptions(); });
+
+            renderColorOptions('opt-shoes-color', appState.outfit.shoes.color, (id) => { appState.outfit.shoes.color = id; drawAvatar(); renderFittingOptions(); });
+
+            // 小物（複数選択＆小物ごと個別のカラー選択）
+            renderAccessorySelectionUI();
+        }
+
+        // 小物の複数選択 & 個別カラー設定UIの更新
+        function renderAccessorySelectionUI() {
+            const accTypeContainer = document.getElementById('opt-acc-type');
+            if (!accTypeContainer) return;
+            accTypeContainer.innerHTML = '';
+
+            const isNoneActive = !Object.values(appState.outfit.accessories).some(item => item.active);
+
+            // 「すべて外す（なし）」ボタン
+            const noneBtn = document.createElement('button');
+            noneBtn.type = 'button';
+            noneBtn.className = `touch-btn ${isNoneActive ? 'selected' : ''}`;
+            noneBtn.innerHTML = '<i class="fa-solid fa-ban mr-1.5"></i> すべて外す';
+            noneBtn.onclick = () => {
+                Object.keys(appState.outfit.accessories).forEach(key => {
+                    appState.outfit.accessories[key].active = false;
+                });
+                drawAvatar();
+                renderFittingOptions();
+            };
+            accTypeContainer.appendChild(noneBtn);
+
+            // 各小物のトグルボタン
+            ACCESSORY_DEFS.forEach(def => {
+                const accObj = appState.outfit.accessories[def.id];
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = `touch-btn ${accObj.active ? 'selected' : ''}`;
+                btn.innerHTML = `${accObj.active ? '<i class="fa-solid fa-check mr-1 text-yellow-300"></i> ' : ''}${def.label}`;
+                btn.onclick = () => {
+                    accObj.active = !accObj.active;
+                    drawAvatar();
+                    renderFittingOptions();
+                };
+                accTypeContainer.appendChild(btn);
+            });
+
+            // 選択されている小物ごとの色設定UI
+            const colorContainer = document.getElementById('acc-color-settings-container');
+            colorContainer.innerHTML = '';
+
+            const activeAccs = ACCESSORY_DEFS.filter(def => appState.outfit.accessories[def.id].active);
+
+            if (activeAccs.length === 0) {
+                colorContainer.innerHTML = `
+                    <div class="p-4 bg-slate-50 rounded-2xl text-center text-xs font-bold text-slate-400">
+                        小物が選択されていません。上から身につけたいこものを選んでね。
+                    </div>
+                `;
+            } else {
+                activeAccs.forEach(def => {
+                    const accObj = appState.outfit.accessories[def.id];
+                    const box = document.createElement('div');
+                    box.className = 'bg-slate-50 p-3.5 rounded-2xl border border-slate-200';
+                    
+                    box.innerHTML = `
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="text-xs font-black text-slate-800 flex items-center gap-1.5">
+                                <span class="bg-indigo-600 text-white px-2 py-0.5 rounded-md text-[10px]">${def.label}</span>
+                                の色を選ぶ
+                            </label>
+                            <span class="text-xs font-bold text-indigo-600 bg-white px-2 py-0.5 rounded-md border border-slate-200">★印は登録色</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2 justify-center" id="color-picker-acc-${def.id}"></div>
+                    `;
+                    colorContainer.appendChild(box);
+
+                    renderColorOptions(`color-picker-acc-${def.id}`, accObj.color, (colorId) => {
+                        accObj.color = colorId;
+                        drawAvatar();
+                        renderFittingOptions();
+                    });
+                });
+            }
+        }
+
+        function renderButtonOptionGroup(containerId, items, selectedId, callback) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = '';
+
+            items.forEach(item => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = `touch-btn ${selectedId === item.id ? 'selected' : ''}`;
+                btn.textContent = item.label;
+                btn.onclick = () => callback(item.id);
+                container.appendChild(btn);
+            });
+        }
+
+        function renderColorOptions(containerId, selectedId, callback) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = '';
+
+            COLOR_MASTER.forEach(c => {
+                const isFav = appState.favColor === c.id;
+                const isFit = appState.fitColor === c.id;
+
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = `color-swatch-btn ${selectedId === c.id ? 'selected' : ''}`;
+                btn.style.backgroundColor = c.hex;
+                if (c.border) btn.style.borderColor = c.border;
+                btn.title = c.name;
+
+                if (isFav || isFit) {
+                    const badge = document.createElement('span');
+                    badge.className = 'absolute -top-1.5 -right-1.5 bg-yellow-400 text-slate-900 text-[10px] font-black rounded-full w-4 h-4 flex items-center justify-center shadow-md';
+                    badge.textContent = '★';
+                    btn.appendChild(badge);
+                }
+
+                if (selectedId === c.id) {
+                    const check = document.createElement('i');
+                    check.className = `fa-solid fa-check text-xs ${c.id === 'white' || c.id === 'yellow' ? 'text-slate-800' : 'text-white'}`;
+                    btn.appendChild(check);
+                }
+
+                btn.onclick = () => callback(c.id);
+                container.appendChild(btn);
+            });
+        }
+
+        function resetOutfit() {
+            appState.outfit = {
+                tops: { type: 'tshirt', sleeve: 'short', collar: 'none', pattern: 'none', stripeWidth: 'normal', color: 'blue' },
+                bottoms: { type: 'straight', skirtLength: 'knee', pattern: 'none', color: 'black' },
+                shoes: { type: 'sneaker', color: 'white' },
+                accessories: {
+                    cap: { active: false, color: 'black' },
+                    backpack: { active: false, color: 'black' },
+                    tote: { active: false, color: 'brown' }
+                }
+            };
+            renderFittingOptions();
+            drawAvatar();
+        }
+
+        function getColorHex(colorId) {
+            const c = COLOR_MASTER.find(item => item.id === colorId);
+            return c ? c.hex : '#2563eb';
+        }
+
+        function drawAvatar() {
+            const canvas = document.getElementById('avatarCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            renderCanvasIllustration(ctx, canvas.width, canvas.height);
+        }
+
+        function renderCanvasIllustration(ctx, width, height) {
+            ctx.clearRect(0, 0, width, height);
+            const cx = width / 2;
+
+            // 1. 素体
+            ctx.save();
+            ctx.fillStyle = '#fde047'; // 髪
+            ctx.beginPath();
+            ctx.arc(cx, 65, 34, Math.PI, 0);
+            ctx.fill();
+
+            ctx.fillStyle = '#fed7aa'; // 肌
+            ctx.beginPath();
+            ctx.arc(cx, 75, 26, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = '#334155'; // 目
+            ctx.beginPath();
+            ctx.arc(cx - 9, 73, 3, 0, Math.PI * 2);
+            ctx.arc(cx + 9, 73, 3, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.strokeStyle = '#334155'; // 口
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(cx, 81, 7, 0.1 * Math.PI, 0.9 * Math.PI);
+            ctx.stroke();
+
+            ctx.fillStyle = '#fcd34d'; // 首
+            ctx.fillRect(cx - 6, 98, 12, 14);
+
+            ctx.fillStyle = '#fed7aa'; // 脚
+            ctx.fillRect(cx - 18, 230, 14, 110);
+            ctx.fillRect(cx + 4, 230, 14, 110);
+
+            ctx.fillStyle = '#fed7aa'; // 腕
+            ctx.fillRect(cx - 38, 112, 12, 90);
+            ctx.fillRect(cx + 26, 112, 12, 90);
+
+            ctx.restore();
+
+            // 2. リュックの背負い紐（背後重なり考慮）
+            drawBackpackStraps(ctx, cx);
+
+            // 3. ボトムス
+            drawBottoms(ctx, cx);
+
+            // 4. トップス
+            drawTops(ctx, cx);
+
+            // 5. 靴
+            drawShoes(ctx, cx);
+
+            // 6. 前面小物（帽子・トートバッグ）
+            drawFrontAccessories(ctx, cx);
+        }
+
+        function drawTops(ctx, cx) {
+            const tops = appState.outfit.tops;
+            const colorHex = getColorHex(tops.color);
+
+            ctx.save();
+            ctx.fillStyle = colorHex;
+            ctx.strokeStyle = '#1e293b';
+            ctx.lineWidth = 2;
+
+            const bodyY = 108;
+            const bodyW = 56;
+            let bodyH = 115;
+            if (tops.type === 'hoodie') bodyH = 122;
+
+            ctx.beginPath();
+            ctx.roundRect(cx - bodyW/2, bodyY, bodyW, bodyH, [8, 8, 4, 4]);
+            ctx.fill();
+            ctx.stroke();
+
+            let sleeveLen = 0;
+            if (tops.sleeve === 'short') sleeveLen = 35;
+            else if (tops.sleeve === 'three-quarter') sleeveLen = 65;
+            else if (tops.sleeve === 'long') sleeveLen = 92;
+
+            if (tops.sleeve !== 'none') {
+                ctx.beginPath();
+                ctx.roundRect(cx - 42, bodyY, 15, sleeveLen, [6, 2, 4, 4]);
+                ctx.fill();
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.roundRect(cx + 27, bodyY, 15, sleeveLen, [2, 6, 4, 4]);
+                ctx.fill();
+                ctx.stroke();
+            }
+
+            if (tops.type === 'hoodie') {
+                ctx.fillStyle = colorHex;
+                ctx.beginPath();
+                ctx.arc(cx, bodyY + 4, 24, Math.PI * 0.8, Math.PI * 0.2, true);
+                ctx.fill();
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.roundRect(cx - 18, bodyY + 70, 36, 30, [4, 4, 8, 8]);
+                ctx.stroke();
+            }
+
+            if (tops.type === 'knit') {
+                ctx.strokeStyle = 'rgba(0,0,0,0.2)';
+                ctx.lineWidth = 1.5;
+                for (let x = cx - 24; x <= cx + 24; x += 4) {
+                    ctx.beginPath();
+                    ctx.moveTo(x, bodyY + bodyH - 12);
+                    ctx.lineTo(x, bodyY + bodyH);
+                    ctx.stroke();
+                }
+            }
+
+            if (tops.type === 'shirt') {
+                ctx.strokeStyle = '#1e293b';
+                ctx.beginPath();
+                ctx.moveTo(cx, bodyY);
+                ctx.lineTo(cx, bodyY + bodyH);
+                ctx.stroke();
+
+                ctx.fillStyle = '#ffffff';
+                for (let y = bodyY + 18; y < bodyY + bodyH - 10; y += 22) {
+                    ctx.beginPath();
+                    ctx.arc(cx, y, 2.5, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.stroke();
+                }
+            }
+
+            drawPatternOnArea(ctx, tops.pattern, tops.stripeWidth, cx - bodyW/2 + 2, bodyY + 2, bodyW - 4, bodyH - 4);
+
+            ctx.fillStyle = '#ffffff';
+            ctx.strokeStyle = '#1e293b';
+            ctx.lineWidth = 2;
+
+            if (tops.collar === 'round') {
+                ctx.beginPath();
+                ctx.arc(cx, bodyY, 14, 0, Math.PI);
+                ctx.fill();
+                ctx.stroke();
+            } else if (tops.collar === 'vneck') {
+                ctx.beginPath();
+                ctx.moveTo(cx - 14, bodyY);
+                ctx.lineTo(cx, bodyY + 18);
+                ctx.lineTo(cx + 14, bodyY);
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+            } else if (tops.collar === 'uneck') {
+                ctx.beginPath();
+                ctx.arc(cx, bodyY, 18, 0, Math.PI);
+                ctx.fill();
+                ctx.stroke();
+            } else if (tops.collar === 'shirt') {
+                ctx.beginPath();
+                ctx.moveTo(cx - 18, bodyY);
+                ctx.lineTo(cx - 4, bodyY + 16);
+                ctx.lineTo(cx, bodyY + 4);
+                ctx.lineTo(cx + 4, bodyY + 16);
+                ctx.lineTo(cx + 18, bodyY);
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+            }
+
+            ctx.restore();
+        }
+
+        function drawPatternOnArea(ctx, pattern, stripeWidth, x, y, w, h) {
+            if (pattern === 'none') return;
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.rect(x, y, w, h);
+            ctx.clip();
+
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+
+            let step = 14;
+            let lw = 3;
+            if (stripeWidth === 'fine') { step = 8; lw = 1.5; }
+            if (stripeWidth === 'thick') { step = 22; lw = 6; }
+            ctx.lineWidth = lw;
+
+            if (pattern === 'stripe-v') {
+                for (let px = x - 20; px < x + w + 20; px += step) {
+                    ctx.beginPath(); ctx.moveTo(px, y); ctx.lineTo(px, y + h); ctx.stroke();
+                }
+            } else if (pattern === 'stripe-h') {
+                for (let py = y; py < y + h; py += step) {
+                    ctx.beginPath(); ctx.moveTo(x, py); ctx.lineTo(x + w, py); ctx.stroke();
+                }
+            } else if (pattern === 'check') {
+                for (let px = x - 20; px < x + w + 20; px += 14) {
+                    ctx.beginPath(); ctx.moveTo(px, y); ctx.lineTo(px, y + h); ctx.stroke();
+                }
+                for (let py = y; py < y + h; py += 14) {
+                    ctx.beginPath(); ctx.moveTo(x, py); ctx.lineTo(x + w, py); ctx.stroke();
+                }
+            } else if (pattern === 'dot') {
+                for (let dx = x + 8; dx < x + w; dx += 16) {
+                    for (let dy = y + 8; dy < y + h; dy += 16) {
+                        ctx.beginPath(); ctx.arc(dx, dy, 2.5, 0, Math.PI * 2); ctx.fill();
+                    }
+                }
+            } else if (pattern === 'flower') {
+                for (let fx = x + 10; fx < x + w; fx += 20) {
+                    for (let fy = y + 10; fy < y + h; fy += 20) {
+                        ctx.beginPath(); ctx.arc(fx, fy, 3, 0, Math.PI * 2); ctx.fill();
+                    }
+                }
+            } else if (pattern === 'one-point') {
+                ctx.fillStyle = '#facc15';
+                ctx.beginPath(); ctx.arc(x + w - 12, y + 20, 5, 0, Math.PI * 2); ctx.fill();
+            }
+
+            ctx.restore();
+        }
+
+        function drawBottoms(ctx, cx) {
+            const bottoms = appState.outfit.bottoms;
+            const colorHex = getColorHex(bottoms.color);
+
+            ctx.save();
+            ctx.fillStyle = colorHex;
+            ctx.strokeStyle = '#1e293b';
+            ctx.lineWidth = 2;
+
+            const startY = 210;
+
+            if (bottoms.type === 'straight') {
+                ctx.beginPath();
+                ctx.roundRect(cx - 24, startY, 21, 130, [2, 2, 4, 4]);
+                ctx.roundRect(cx + 3, startY, 21, 130, [2, 2, 4, 4]);
+                ctx.fill(); ctx.stroke();
+                drawPatternOnArea(ctx, bottoms.pattern, 'normal', cx - 24, startY, 48, 130);
+            } else if (bottoms.type === 'wide') {
+                ctx.beginPath();
+                ctx.roundRect(cx - 30, startY, 28, 135, [4, 4, 6, 6]);
+                ctx.roundRect(cx + 2, startY, 28, 135, [4, 4, 6, 6]);
+                ctx.fill(); ctx.stroke();
+                drawPatternOnArea(ctx, bottoms.pattern, 'normal', cx - 30, startY, 60, 135);
+            } else if (bottoms.type === 'shorts') {
+                ctx.beginPath();
+                ctx.roundRect(cx - 25, startY, 22, 65, [2, 2, 4, 4]);
+                ctx.roundRect(cx + 3, startY, 22, 65, [2, 2, 4, 4]);
+                ctx.fill(); ctx.stroke();
+                drawPatternOnArea(ctx, bottoms.pattern, 'normal', cx - 25, startY, 50, 65);
+            } else if (bottoms.type === 'skirt') {
+                const skirtLengths = { short: 55, knee: 80, long: 105 };
+                const skirtH = skirtLengths[bottoms.skirtLength] || 80;
+                ctx.beginPath();
+                ctx.moveTo(cx - 22, startY);
+                ctx.lineTo(cx + 22, startY);
+                ctx.lineTo(cx + 42, startY + skirtH);
+                ctx.lineTo(cx - 42, startY + skirtH);
+                ctx.closePath();
+                ctx.fill(); ctx.stroke();
+                drawPatternOnArea(ctx, bottoms.pattern, 'normal', cx - 42, startY, 84, skirtH);
+            }
+
+            ctx.restore();
+        }
+
+        function drawShoes(ctx, cx) {
+            const shoes = appState.outfit.shoes;
+            const colorHex = getColorHex(shoes.color);
+
+            ctx.save();
+            ctx.fillStyle = colorHex;
+            ctx.strokeStyle = '#1e293b';
+            ctx.lineWidth = 2;
+
+            const footY = 338;
+
+            if (shoes.type === 'sandal') {
+                ctx.fillStyle = '#fed7aa';
+                ctx.fillRect(cx - 22, footY + 4, 18, 8);
+                ctx.fillRect(cx + 4, footY + 4, 18, 8);
+
+                ctx.fillStyle = '#334155';
+                ctx.beginPath();
+                ctx.roundRect(cx - 24, footY + 12, 22, 7, 3);
+                ctx.roundRect(cx + 2, footY + 12, 22, 7, 3);
+                ctx.fill(); ctx.stroke();
+
+                ctx.fillStyle = colorHex;
+                ctx.beginPath();
+                ctx.roundRect(cx - 22, footY + 2, 18, 5, 2);
+                ctx.roundRect(cx - 22, footY + 8, 18, 5, 2);
+                ctx.roundRect(cx + 4, footY + 2, 18, 5, 2);
+                ctx.roundRect(cx + 4, footY + 8, 18, 5, 2);
+                ctx.fill(); ctx.stroke();
+            } else if (shoes.type === 'leather') {
+                ctx.beginPath();
+                ctx.roundRect(cx - 25, footY - 1, 22, 18, [8, 5, 3, 3]);
+                ctx.roundRect(cx + 3, footY - 1, 22, 18, [5, 8, 3, 3]);
+                ctx.fill(); ctx.stroke();
+
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(cx - 25, footY + 14, 8, 4);
+                ctx.fillRect(cx + 17, footY + 14, 8, 4);
+
+                ctx.strokeStyle = 'rgba(255,255,255,0.5)';
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(cx - 23, footY + 6); ctx.lineTo(cx - 10, footY + 6);
+                ctx.moveTo(cx + 10, footY + 6); ctx.lineTo(cx + 23, footY + 6);
+                ctx.stroke();
+            } else { 
+                ctx.beginPath();
+                ctx.roundRect(cx - 26, footY - 3, 24, 20, [9, 7, 4, 4]);
+                ctx.roundRect(cx + 2, footY - 3, 24, 20, [7, 9, 4, 4]);
+                ctx.fill(); ctx.stroke();
+
+                ctx.fillStyle = '#ffffff';
+                ctx.beginPath();
+                ctx.arc(cx - 21, footY + 10, 5.5, Math.PI * 0.5, Math.PI * 1.5);
+                ctx.arc(cx + 21, footY + 10, 5.5, Math.PI * 1.5, Math.PI * 0.5);
+                ctx.fill();
+
+                ctx.fillRect(cx - 26, footY + 10, 24, 7);
+                ctx.strokeRect(cx - 26, footY + 10, 24, 7);
+                ctx.fillRect(cx + 2, footY + 10, 24, 7);
+                ctx.strokeRect(cx + 2, footY + 10, 24, 7);
+
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(cx - 22, footY); ctx.lineTo(cx - 14, footY + 6);
+                ctx.moveTo(cx - 14, footY); ctx.lineTo(cx - 22, footY + 6);
+                ctx.moveTo(cx + 6, footY); ctx.lineTo(cx + 14, footY + 6);
+                ctx.moveTo(cx + 14, footY); ctx.lineTo(cx + 6, footY + 6);
+                ctx.stroke();
+            }
+
+            ctx.restore();
+        }
+
+        // リュック背負い紐描画
+        function drawBackpackStraps(ctx, cx) {
+            const bp = appState.outfit.accessories.backpack;
+            if (!bp || !bp.active) return;
+
+            const colorHex = getColorHex(bp.color);
+            ctx.save();
+            ctx.lineWidth = 5;
+            ctx.strokeStyle = colorHex;
+            ctx.beginPath();
+            ctx.moveTo(cx - 22, 108); ctx.lineTo(cx - 20, 190);
+            ctx.moveTo(cx + 22, 108); ctx.lineTo(cx + 20, 190);
+            ctx.stroke();
+
+            // 枠線
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = '#1e293b';
+            ctx.beginPath();
+            ctx.moveTo(cx - 24, 108); ctx.lineTo(cx - 22, 190);
+            ctx.moveTo(cx - 20, 108); ctx.lineTo(cx - 18, 190);
+            ctx.moveTo(cx + 20, 108); ctx.lineTo(cx + 18, 190);
+            ctx.moveTo(cx + 24, 108); ctx.lineTo(cx + 22, 190);
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        // 前面小物描画 (帽子・トートバッグ)
+        function drawFrontAccessories(ctx, cx) {
+            const accs = appState.outfit.accessories;
+
+            ctx.save();
+            ctx.strokeStyle = '#1e293b';
+            ctx.lineWidth = 2;
+
+            // トートバッグ
+            if (accs.tote && accs.tote.active) {
+                const colorHex = getColorHex(accs.tote.color);
+                const bagX = cx + 32;
+                const bagY = 180;
+                
+                ctx.fillStyle = colorHex;
+                // ストラップ
+                ctx.beginPath();
+                ctx.moveTo(bagX + 6, bagY); ctx.lineTo(bagX + 6, bagY - 30);
+                ctx.moveTo(bagX + 22, bagY); ctx.lineTo(bagX + 22, bagY - 30);
+                ctx.stroke();
+
+                // バッグ本体
+                ctx.beginPath();
+                ctx.roundRect(bagX, bagY, 28, 38, 4);
+                ctx.fill(); ctx.stroke();
+            }
+
+            // 帽子（一番前面）
+            if (accs.cap && accs.cap.active) {
+                const colorHex = getColorHex(accs.cap.color);
+                ctx.fillStyle = colorHex;
+
+                ctx.beginPath();
+                ctx.arc(cx, 55, 28, Math.PI, 0);
+                ctx.fill(); ctx.stroke();
+
+                ctx.beginPath();
+                ctx.ellipse(cx + 8, 55, 24, 6, 0.1, 0, Math.PI * 2);
+                ctx.fill(); ctx.stroke();
+            }
+
+            ctx.restore();
+        }
+
+        function updateStep4PreviousColor() {
+            const favObj = COLOR_MASTER.find(c => c.id === appState.favColor);
+            const fitObj = COLOR_MASTER.find(c => c.id === appState.fitColor);
+            const favEl = document.getElementById('step4-fav-color');
+            const fitEl = document.getElementById('step4-fit-color');
+            if (favEl) favEl.textContent = favObj ? favObj.name : '未選択';
+            if (fitEl) fitEl.textContent = fitObj ? fitObj.name : '未選択';
+
+            document.querySelectorAll('input[name="previous-color-use"]').forEach(radio => {
+                radio.checked = radio.value === appState.previousColorUse;
+                radio.onchange = () => {
+                    appState.previousColorUse = radio.value;
+                };
+            });
+        }
+
+        function renderMyStyleChecks() {
+            const container = document.getElementById('check-my-style');
+            if (!container) return;
+            container.innerHTML = '';
+
+            MY_STYLE_OPTIONS.forEach(opt => {
+                const isChecked = appState.myStylePoints.includes(opt.id);
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = `touch-btn ${isChecked ? 'selected' : ''}`;
+                btn.textContent = opt.label;
+                btn.onclick = () => {
+                    if (isChecked) {
+                        appState.myStylePoints = appState.myStylePoints.filter(i => i !== opt.id);
+                    } else {
+                        appState.myStylePoints.push(opt.id);
+                    }
+                    renderMyStyleChecks();
+                };
+                container.appendChild(btn);
+            });
+        }
+
+        function insertTemplate(text) {
+            const textarea = document.getElementById('comment-text');
+            if (!textarea) return;
+            textarea.value += text;
+            textarea.focus();
+        }
+
+        function updateStep5Summary() {
+            const tpo = TPO_MASTER.find(t => t.id === appState.selectedTPO);
+            const favObj = COLOR_MASTER.find(c => c.id === appState.favColor);
+            const fitObj = COLOR_MASTER.find(c => c.id === appState.fitColor);
+
+            if (tpo) {
+                if (tpo.id === 'custom') {
+                    const c = appState.customTPO;
+                    const customDetail = c.activity.trim() ? `／${c.activity.trim()}` : '';
+                    document.getElementById('summary-tpo').textContent = `${c.title.trim() || '自分で決めた場面'}（${c.season} / ${c.temp}${customDetail}）`;
+                } else {
+                    document.getElementById('summary-tpo').textContent = `${tpo.title}（${tpo.season} / ${tpo.temp}）`;
+                }
+            } else {
+                document.getElementById('summary-tpo').textContent = '未選択';
+            }
+            document.getElementById('summary-fav').textContent = favObj ? favObj.name : '未選択';
+            document.getElementById('summary-fit').textContent = fitObj ? fitObj.name : '未選択';
+
+            const styleLabels = appState.myStylePoints.map(id => {
+                const opt = MY_STYLE_OPTIONS.find(o => o.id === id);
+                return opt ? opt.label : '';
+            }).filter(Boolean);
+            document.getElementById('summary-my-style').textContent = styleLabels.length > 0 ? styleLabels.join('、') : '特に指定なし';
+
+            const previousColorLabels = {
+                fav: '好きな色を取り入れた',
+                fit: '似合うと思った色を取り入れた',
+                both: '好きな色と似合うと思った色の両方を取り入れた',
+                other: '今回は別の色を選んだ'
+            };
+            const previousColorEl = document.getElementById('summary-previous-color');
+            if (previousColorEl) {
+                previousColorEl.textContent = previousColorLabels[appState.previousColorUse] || '未選択';
+            }
+
+            const commentVal = document.getElementById('comment-text').value;
+            document.getElementById('summary-comment').textContent = commentVal.trim() !== '' ? commentVal : '（コメント未入力）';
+
+            const refList = document.getElementById('summary-reflections');
+            refList.innerHTML = '';
+            const refItems = [
+                { id: 'chk-ref-1', text: '場面（場所・目的）に合っている' },
+                { id: 'chk-ref-2', text: '季節・気温に合っている' },
+                { id: 'chk-ref-3', text: '動きやすさや安全性を考えた' },
+                { id: 'chk-ref-4', text: '自分らしさを取り入れた' }
+            ];
+
+            refItems.forEach(item => {
+                const el = document.getElementById(item.id);
+                const isChecked = el ? el.checked : false;
+                const li = document.createElement('li');
+                li.className = isChecked ? 'text-emerald-700' : 'text-slate-400';
+                li.innerHTML = `<i class="fa-solid ${isChecked ? 'fa-circle-check' : 'fa-circle-xmark'} mr-1"></i> ${item.text}`;
+                refList.appendChild(li);
+            });
+        }
+
+        function drawFinalCardCanvas() {
+            const canvas = document.getElementById('finalCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            renderCanvasIllustration(ctx, canvas.width, canvas.height);
+        }
+
+        // A. 人物イラストだけを保存
+        function saveAvatarImage() {
+            const finalCanvas = document.getElementById('finalCanvas');
+            if (!finalCanvas) return;
+
+            const imageURI = finalCanvas.toDataURL("image/png");
+            const link = document.createElement('a');
+            link.download = `着せ替え人物イラスト_${new Date().toISOString().slice(0,10)}.png`;
+            link.href = imageURI;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // B. 振り返りシート全体を高精細Canvas描画して保存（学校タブレット対応＆高画質）
+        function saveFullSheetImage() {
+            // 高解像度保存用キャンバスを作成（幅900px, 高さ1250px）
+            const canvas = document.createElement('canvas');
+            canvas.width = 900;
+            canvas.height = 1250;
+            const ctx = canvas.getContext('2d');
+
+            // 背景描画
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // 背景グラデーション
+            const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            grad.addColorStop(0, '#f8fafc');
+            grad.addColorStop(1, '#eef2ff');
+            ctx.fillStyle = grad;
+            ctx.fillRect(20, 20, canvas.width - 40, canvas.height - 40);
+
+            // 外枠線
+            ctx.strokeStyle = '#c7d2fe';
+            ctx.lineWidth = 4;
+            ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
+
+            // ヘッダータイトル
+            ctx.fillStyle = '#4f46e5';
+            ctx.font = 'bold 18px "Noto Sans JP", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('家庭科 学習振り返りシート', canvas.width / 2, 65);
+
+            ctx.fillStyle = '#0f172a';
+            ctx.font = '900 32px "Noto Sans JP", sans-serif';
+            ctx.fillText('私の「自分らしい着方」', canvas.width / 2, 105);
+
+            ctx.strokeStyle = '#a5b4fc';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(60, 125);
+            ctx.lineTo(canvas.width - 60, 125);
+            ctx.stroke();
+
+            // 着せ替えイラスト描画（左側に配置）
+            ctx.save();
+            ctx.translate(50, 150);
+
+            // イラスト枠
+            ctx.fillStyle = '#ffffff';
+            ctx.shadowColor = 'rgba(0,0,0,0.08)';
+            ctx.shadowBlur = 15;
+            ctx.fillRect(0, 0, 320, 430);
+            ctx.shadowColor = 'transparent';
+            ctx.strokeStyle = '#cbd5e1';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(0, 0, 320, 430);
+
+            // 人物描画を実行
+            ctx.translate(10, 15);
+            renderCanvasIllustration(ctx, 300, 400);
+            ctx.restore();
+
+            // 右側の学習内容情報テキスト描画
+            ctx.textAlign = 'left';
+            const rightX = 400;
+            let currentY = 175;
+
+            // TPO
+            const tpo = TPO_MASTER.find(t => t.id === appState.selectedTPO);
+            drawSheetSectionBox(ctx, rightX, currentY, 440, 75, '【選んだ場面（TPO）】', tpo ? `${tpo.title}（${tpo.season} / ${tpo.temp}）` : '未選択', '#1e1b4b');
+            currentY += 90;
+
+            // 登録色
+            const favObj = COLOR_MASTER.find(c => c.id === appState.favColor);
+            const fitObj = COLOR_MASTER.find(c => c.id === appState.fitColor);
+            const favText = favObj ? favObj.name : '未選択';
+            const fitText = fitObj ? fitObj.name : '未選択';
+            drawSheetSectionBox(ctx, rightX, currentY, 440, 75, '【前回の登録色】', `好きな色: ${favText}  /  似合う色: ${fitText}`, '#334155');
+            currentY += 90;
+
+            // 自分らしさポイント
+            const styleLabels = appState.myStylePoints.map(id => {
+                const opt = MY_STYLE_OPTIONS.find(o => o.id === id);
+                return opt ? opt.label : '';
+            }).filter(Boolean);
+            const styleStr = styleLabels.length > 0 ? styleLabels.join('、') : '特に指定なし';
+            drawSheetSectionBox(ctx, rightX, currentY, 440, 75, '【自分らしさを取り入れた部分】', styleStr, '#4338ca');
+            currentY += 90;
+
+            // セルフチェック結果
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(rightX, currentY, 440, 140);
+            ctx.strokeStyle = '#cbd5e1';
+            ctx.lineWidth = 1.5;
+            ctx.strokeRect(rightX, currentY, 440, 140);
+
+            ctx.fillStyle = '#0f172a';
+            ctx.font = 'bold 15px "Noto Sans JP", sans-serif';
+            ctx.fillText('【セルフチェック結果】', rightX + 15, currentY + 30);
+
+            const refItems = [
+                { id: 'chk-ref-1', text: '場面（場所・目的）に合っている' },
+                { id: 'chk-ref-2', text: '季節・気温に合っている' },
+                { id: 'chk-ref-3', text: '動きやすさや安全性を考えた' },
+                { id: 'chk-ref-4', text: '自分らしさを取り入れた' }
+            ];
+
+            ctx.font = '14px "Noto Sans JP", sans-serif';
+            refItems.forEach((item, index) => {
+                const el = document.getElementById(item.id);
+                const isChecked = el ? el.checked : false;
+                const itemX = rightX + 20 + (index % 2) * 210;
+                const itemY = currentY + 65 + Math.floor(index / 2) * 35;
+
+                ctx.fillStyle = isChecked ? '#047857' : '#94a3b8';
+                ctx.fillText(`${isChecked ? '☑' : '☐'} ${item.text}`, itemX, itemY);
+            });
+            currentY += 155;
+
+            // 工夫した点と理由 (文章)
+            const commentVal = document.getElementById('comment-text').value.trim() || '（コメント未入力）';
+            
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(50, 600, 800, 490);
+            ctx.strokeStyle = '#cbd5e1';
+            ctx.lineWidth = 1.5;
+            ctx.strokeRect(50, 600, 800, 490);
+
+            ctx.fillStyle = '#0f172a';
+            ctx.font = 'bold 18px "Noto Sans JP", sans-serif';
+            ctx.fillText('【工夫した点と理由】', 70, 638);
+
+            ctx.fillStyle = '#334155';
+            ctx.font = '16px "Noto Sans JP", sans-serif';
+            wrapTextOnCanvas(ctx, commentVal, 70, 675, 760, 28);
+
+            // 下部グループワーク提示メッセージ
+            ctx.fillStyle = '#4f46e5';
+            ctx.roundRect(50, 1110, 800, 75, 16);
+            ctx.fill();
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 17px "Noto Sans JP", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('💡 この画面をグループの友達に見せながら「どこを工夫したか」「なぜその服を選んだか」共有してみよう！', canvas.width / 2, 1153);
+
+            // 画像保存処理
+            const imageURI = canvas.toDataURL("image/png");
+            const link = document.createElement('a');
+            link.download = `自分らしい着方_振り返りシート_${new Date().toISOString().slice(0,10)}.png`;
+            link.href = imageURI;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // セクション用テキストボックス描き
+        function drawSheetSectionBox(ctx, x, y, w, h, title, content, color) {
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(x, y, w, h);
+            ctx.strokeStyle = '#cbd5e1';
+            ctx.lineWidth = 1.5;
+            ctx.strokeRect(x, y, w, h);
+
+            ctx.fillStyle = '#0f172a';
+            ctx.font = 'bold 14px "Noto Sans JP", sans-serif';
+            ctx.fillText(title, x + 15, y + 28);
+
+            ctx.fillStyle = color;
+            ctx.font = 'bold 15px "Noto Sans JP", sans-serif';
+            ctx.fillText(content, x + 15, y + 55);
+        }
+
+        // Canvas内自動折り返しテキスト描写 helper
+        function wrapTextOnCanvas(ctx, text, x, y, maxWidth, lineHeight) {
+            const paragraphs = text.split('\n');
+            let currentY = y;
+
+            for (let i = 0; i < paragraphs.length; i++) {
+                let line = '';
+                const chars = paragraphs[i].split('');
+
+                for (let n = 0; n < chars.length; n++) {
+                    const testLine = line + chars[n];
+                    const metrics = ctx.measureText(testLine);
+                    if (metrics.width > maxWidth && n > 0) {
+                        ctx.fillText(line, x, currentY);
+                        line = chars[n];
+                        currentY += lineHeight;
+                    } else {
+                        line = testLine;
+                    }
+                }
+                ctx.fillText(line, x, currentY);
+                currentY += lineHeight;
+            }
+        }
+
+        function restartApp() {
+            appState.step = 1;
+            appState.selectedTPO = null;
+            appState.myStylePoints = [];
+            appState.previousColorUse = '';
+            appState.comment = '';
+            appState.customTPO = { title: '', season: '春', temp: '20℃', activity: '' };
+            resetOutfit();
+            const comment = document.getElementById('comment-text');
+            if (comment) comment.value = '';
+            document.querySelectorAll('input[name="previous-color-use"]').forEach(r => r.checked = false);
+            goToStep(1);
+        }
+    </script>
+</body>
+</html>
